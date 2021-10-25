@@ -1,7 +1,7 @@
 import chai from 'chai';
 import moment from 'moment-timezone';
 import { initDB, runQuery } from '../database';
-import { getAttendances, getCourses, getUsers } from '../controllers';
+import { getAttendances, getCourses, getUsers, getUsersFromCourse } from '../controllers';
 
 const expect = chai.expect;
 const now = '2021-10-25T12:00:00.000Z';
@@ -9,6 +9,7 @@ const now = '2021-10-25T12:00:00.000Z';
 const seedTestDB = async () => {
     await runQuery(`INSERT INTO user VALUES ('1', 'Jhon'), ('2', 'Jenny');`);
     await runQuery(`INSERT INTO course VALUES ('15', 'Course A'), ('18', 'Course B')`);
+    await runQuery(`INSERT INTO courseUser VALUES ('1', '15', '1'), ('2', '15', '2'), ('3', '18', '1'), ('4', '18', '2')`);
     await runQuery(`INSERT INTO attendance VALUES 
     ('1', ${moment(now).subtract({hour: 1}).unix()}, ${moment(now).subtract({minute: 30}).unix()}, '15', '1'), 
     ('2', ${moment(now).subtract({hour: 2}).unix()}, ${moment(now).subtract({hour: 1}).unix()}, '15', '2'),
@@ -44,6 +45,24 @@ describe('Controller Tests', function() {
             const attendances = await getAttendances();
             expect(attendances).to.be.an('array');
             expect(attendances).to.have.lengthOf(5);
+        });
+    });
+
+    describe('getUsersFromCourse', function() {
+        it('should return users from a course as expected', async function() {
+            const userCourses = await getUsersFromCourse(18);
+            expect(userCourses).to.be.an('array');
+            expect(userCourses).to.have.lengthOf(2);
+
+            expect(userCourses).to.be.eql([{
+                courseID: 18,
+                userID: 1,
+                userName: 'Jhon',
+            }, {
+                courseID: 18,
+                userID: 2,
+                userName: 'Jenny',
+            }])
         });
     });
 });

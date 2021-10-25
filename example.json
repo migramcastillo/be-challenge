@@ -1,0 +1,16 @@
+{
+    "course": {
+        "courseID": 1,
+        "courseName": "Some name",
+        "users": [{
+            "userID": 1,
+            "userName": "My Name",
+            "score": 1000,
+            "attendances": [{
+                "attendanceID": 1,
+                "start": "24 Dec 2021 12:00:00",
+                "end": "24 Dec 2021 15:00:00"
+            }]
+        }]
+    }
+}

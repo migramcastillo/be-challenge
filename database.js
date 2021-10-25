@@ -42,6 +42,13 @@ export async function initDB () {
                     courseID INTEGER PRIMARY KEY AUTOINCREMENT,
                     courseName TEXT
                     );
+                    CREATE TABLE IF NOT EXISTS courseUser (
+                    courseUserID INTEGER PRIMARY KEY AUTOINCREMENT,
+                    courseID INTEGER,
+                    userID INTEGER,
+                    FOREIGN KEY(courseID) REFERENCES course(courseID),
+                    FOREIGN KEY(userID) REFERENCES user(userID)
+                    );
                     CREATE TABLE IF NOT EXISTS attendance (
                     attendanceID INTEGER PRIMARY KEY AUTOINCREMENT,
                     start INTEGER,

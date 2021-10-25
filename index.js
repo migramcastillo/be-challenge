@@ -26,6 +26,14 @@ app.get('/attendance', async (req, res, next) => {
     res.json({attendances});
 });
 
+app.get('/courseUser/:courseID', async (req, res, next) => {
+    const {courseID} = req.params;
+
+    const courseUsers = await getUsersFromCourse(courseID);
+    res.json({courseUsers});
+});
+
+// Optional
 app.post('/attendance', async (req, res, next) => {
     const {start, end, userID, courseID} = req.body;
 
@@ -33,8 +41,12 @@ app.post('/attendance', async (req, res, next) => {
     res.statusCode(200);
 });
 
-app.get('/attendance/course/:courseID', async (req, res, next) => {
+app.get('/score/:courseID', async (req, res, next) => {
     const {courseID} = req.params;
+    const {timezone} = req.query;
+
+    // Expected output example.json
+
     res.json({message: 'OK'});
 });
 
