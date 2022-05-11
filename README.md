@@ -36,14 +36,14 @@ The code consist in a simple Express+SQLite API server with 4 tables generates i
 
 ## Objective
 
-The objective of the challenge is to replicate the same structure of `example.json` in the API `app.get('/score/:courseID')` with its respective tests.
+The objective of the challenge is to replicate the same structure of `example.json` in the API `app.get('/score/:courseID')`.
 
-The response should contain all the users related to the course via `courseUser`, and their scores in minutes with a breakdown of all the attendances.
+You should create the logic in the function `getCourseScore` that is in `controllers.js`, that function should be tested on `test/controllers.spec.js`.
+
+The response should contain all the users related to the course via `courseUser`, and their scores in minutes with a breakdown of all the attendances. The score should be the difference between `start` and `end` on an attendance record in minutes.
 
 If the user doesn't have any attendance, score should be `0` and attendance breakdown should be an empty array. 
 
 **Attendances start and end are stored in UNIX format**, the candidate should transform it to a human readable format, feel free to install any library to make the transformation.
 
-Every attendance in the breakdown should be ascendant by the `start` value.
-
-It should have unit tests, there is mock data available generated in the tests, feel free to use Internet or answer questions to the interviewer.
+Feel free to use Internet or answer questions to the interviewer.
